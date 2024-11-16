@@ -11,14 +11,14 @@ const tutorials = [
   },
   {
     id: 2,
-    title: 'Control Structures',
-    description: 'Master if statements, loops, and switch cases',
+    title: 'Synchronous Programming in Java',
+    description: 'Master Synchronous Programming in Java',
     icon: Terminal,
   },
   {
     id: 3,
-    title: 'Object-Oriented Programming',
-    description: 'Understand classes, objects, inheritance, and polymorphism',
+    title: 'Asynchronous Programming in Java',
+    description: 'Understand Asynchronous Programming in Java',
     icon: Code2,
   },
 ];

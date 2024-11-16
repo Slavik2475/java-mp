@@ -16,92 +16,125 @@ Thread creation by extending the Thread class
 We create a class that extends the java.lang.Thread class. This class overrides the run() method available in the Thread class. A thread begins its life inside run() method. We create an object of our new class and call start() method to start the execution of a thread. Start() invokes the run() method on the Thread object
     
     `,
-    example: `public class HelloWorld {
-    public static void main(String[] args) {
-        // This is a comment
-        System.out.println("Hello, World!");
-        
-        // Variables
-        String name = "JavaLab";
-        int age = 28;
-        
-        // String concatenation
-        System.out.println("Welcome to " + name);
-        System.out.println("Java is " + age + " years old");
-    }
-}`,
+    example: `public class Multithread {
+      public static void main(String[] args) {
+          int n = 8; // Number of threads
+  
+          for (int i = 0; i < n; i++) {
+              // Creating a thread using an anonymous class
+              Thread thread = new Thread(() -> {
+                  try {
+                      // Displaying the thread that is running
+                      System.out.println(
+                          "Thread " + Thread.currentThread().getId()
+                          + " is running");
+                  } catch (Exception e) {
+                      // Throwing an exception
+                      System.out.println("Exception is caught");
+                  }
+              });
+  
+              // Starting the thread
+              thread.start();
+          }
+      }
+  }`,
   },
   2: {
-    title: 'Control Structures',
-    content: `Control structures in Java allow you to control the flow of your program's execution. The main control structures are:
+    title: 'Synchronization in Java',
+    content: `Multi-threaded programs may often come to a situation where multiple threads try to access the same resources and finally produce erroneous and unforeseen results. 
 
-1. If-else statements
-2. Loops (for, while, do-while)
-3. Switch statements`,
-    example: `public class ControlStructures {
-    public static void main(String[] args) {
-        // If-else statement
-        int number = 10;
-        
-        if (number > 0) {
-            System.out.println("Positive number");
-        } else if (number < 0) {
-            System.out.println("Negative number");
-        } else {
-            System.out.println("Zero");
-        }
-        
-        // For loop
-        for (int i = 1; i <= 5; i++) {
-            System.out.println("Count: " + i);
-        }
-        
-        // While loop
-        int count = 0;
-        while (count < 3) {
-            System.out.println("While loop: " + count);
-            count++;
-        }
-    }
-}`,
+Why use Java Synchronization?
+Java Synchronization is used to make sure by some synchronization method that only one thread can access the resource at a given point in time. 
+    
+Java Synchronized Blocks
+Java provides a way of creating threads and synchronizing their tasks using synchronized blocks. 
+    
+A synchronized block in Java is synchronized on some object. All synchronized blocks synchronize on the same object and can only have one thread executed inside them at a time. All other threads attempting to enter the synchronized block are blocked until the thread inside the synchronized block exits the block. If you want to master concurrency and understand how to avoid common pitfalls, the Java Programming Course offers in-depth coverage of synchronization with practical coding exercises.
+    `,
+    example: `public class SyncDemo {
+      public static void main(String[] args) {
+          // Shared sender object
+          Object sender = new Object();
+  
+          // Create thread 1
+          Thread t1 = new Thread(() -> {
+              synchronized (sender) {
+                  System.out.println("Sending\tHi");
+                  try {
+                      Thread.sleep(1000);
+                  } catch (InterruptedException e) {
+                      System.out.println("Thread interrupted.");
+                  }
+                  System.out.println("\nHi Sent");
+              }
+          });
+  
+          // Create thread 2
+          Thread t2 = new Thread(() -> {
+              synchronized (sender) {
+                  System.out.println("Sending\tBye");
+                  try {
+                      Thread.sleep(1000);
+                  } catch (InterruptedException e) {
+                      System.out.println("Thread interrupted.");
+                  }
+                  System.out.println("\nBye Sent");
+              }
+          });
+  
+          // Start the threads
+          t1.start();
+          t2.start();
+  
+          // Wait for threads to finish
+          try {
+              t1.join();
+              t2.join();
+          } catch (InterruptedException e) {
+              System.out.println("Interrupted");
+          }
+      }
+  }`,
   },
   3: {
-    title: 'Object-Oriented Programming',
-    content: `Object-Oriented Programming (OOP) is a programming paradigm based on the concept of objects that contain data and code. The main principles of OOP are:
+    title: 'Asynchronous Programming in Java',
+    content: `Asynchronous programming in Java allows you to execute the tasks concurrently improving the overall performance and responsiveness of your applications. Java provides several mechanisms for asynchronous programming and two commonly used approaches are discussed in this article.
 
-1. Encapsulation
-2. Inheritance
-3. Polymorphism
-4. Abstraction`,
-    example: `class Animal {
-    private String name;
+Approaches for Asynchronous Programming
+There are two commonly used approaches for Asynchronous Programming as mentioned below:
     
-    public Animal(String name) {
-        this.name = name;
-    }
+Callbacks with CompletableFuture
+Asynchronous Programming with Future and ExecutorService
+1. Callbacks with CompletableFuture
+The CompletableFuture is a class introduced in Java 8 that facilitates asynchronous programming using the callback-based approach.
+It represents a promise that may be asynchronously completed with the value or an exception.
+Example of demonstrating the use of the CompletableFuture:`,
+    example: `//Java program to demonstrate the use of the CompletableFuture 
+    import java.io.*; 
+    import java.util.concurrent.CompletableFuture; 
+      
+    public class GFG { 
+      
+        public static void main(String[] args) { 
+            CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> { 
+                try { 
+                    Thread.sleep(200); 
+                } catch (InterruptedException e) { 
+                    e.printStackTrace(); 
+                } 
+                return "Hello, CompletableFuture!"; 
+            }); 
+            future.thenAccept(result -> System.out.println("The Result: " + result)); 
+            try { 
+                Thread.sleep(300); 
+            } catch (InterruptedException e) { 
+                e.printStackTrace(); 
+            } 
+        } 
+    } 
     
-    public void makeSound() {
-        System.out.println("Some sound");
-    }
-}
-
-class Dog extends Animal {
-    public Dog(String name) {
-        super(name);
-    }
-    
-    @Override
-    public void makeSound() {
-        System.out.println("Woof!");
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Animal dog = new Dog("Buddy");
-        dog.makeSound(); // Outputs: Woof!
-    }
-}`,
+    `,
   },
 };
 
