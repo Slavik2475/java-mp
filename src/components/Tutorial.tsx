@@ -4,14 +4,18 @@ import { ChevronLeft, Code2, Copy, Check } from 'lucide-react';
 
 const tutorials = {
   1: {
-    title: 'Introduction to Java',
-    content: `Java is a popular programming language that follows the Object-Oriented programming paradigm. It was developed by Sun Microsystems and released in 1995.
+    title: 'Multithreading in Java',
+    content: `Multithreading is a Java feature that allows concurrent execution of two or more parts of a program for maximum utilization of CPU. Each part of such program is called a thread. So, threads are light-weight processes within a process.
 
-Key features of Java include:
-- Platform independence (Write Once, Run Anywhere)
-- Object-oriented programming
-- Rich standard library
-- Automatic memory management`,
+    Threads can be created by using two mechanisms : 
+    
+    1.Extending the Thread class 
+    2.Implementing the Runnable Interface
+    
+Thread creation by extending the Thread class
+We create a class that extends the java.lang.Thread class. This class overrides the run() method available in the Thread class. A thread begins its life inside run() method. We create an object of our new class and call start() method to start the execution of a thread. Start() invokes the run() method on the Thread object
+    
+    `,
     example: `public class HelloWorld {
     public static void main(String[] args) {
         // This is a comment

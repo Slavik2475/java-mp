@@ -5,8 +5,8 @@ import { BookOpen, Code2, Terminal } from 'lucide-react';
 const tutorials = [
   {
     id: 1,
-    title: 'Introduction to Java',
-    description: 'Learn the basics of Java programming language',
+    title: 'Multithreading in Java',
+    description: 'Learn the basics of Multithreading in Java',
     icon: BookOpen,
   },
   {
